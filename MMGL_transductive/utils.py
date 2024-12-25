@@ -22,9 +22,20 @@ def real2col(x):
     return '%d,%d,%d' % (r * 255, g * 255, b * 255)
 
 
+
 def one_hot(x, class_count):
     return torch.eye(class_count)[x,:]
 
+#new onehot function
+def one_hot(x, class_count):
+    # Get the device of the input tensor
+    device = x.device
+    
+    # Create an identity matrix on the same device as x
+    identity_matrix = torch.eye(class_count, device=device)
+    
+    # Return the one-hot encoded tensor
+    return identity_matrix[x, :]
 
 def GraphConstructLoss(feat, adj, theta_smooth, theta_degree, theta_sparsity):
     # Graph regularization
